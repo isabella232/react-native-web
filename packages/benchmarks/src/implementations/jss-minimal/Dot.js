@@ -29,7 +29,7 @@ const Dot = ({ children, ...other }) => {
 };
 
 const styles = {
-  root: {
+  root: ({ color, size, x, y }) => ({
     position: 'absolute',
     cursor: 'pointer',
     width: 0,
@@ -38,13 +38,13 @@ const styles = {
     borderStyle: 'solid',
     borderTopWidth: 0,
     transform: 'translate(50%, 50%)',
-    borderBottomColor: ({ color }) => color,
-    borderRightWidth: ({ size }) => `${size / 2}px`,
-    borderBottomWidth: ({ size }) => `${size / 2}px`,
-    borderLeftWidth: ({ size }) => `${size / 2}px`,
-    marginLeft: ({ x }) => `${x}px`,
-    marginTop: ({ y }) => `${y}px`
-  }
+    borderBottomColor: color,
+    borderRightWidth: `${size / 2}px`,
+    borderBottomWidth: `${size / 2}px`,
+    borderLeftWidth: `${size / 2}px`,
+    marginLeft: `${x}px`,
+    marginTop: `${y}px`
+  })
 };
 
 export default Dot;
