@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useLayoutEffect, useRef, useEffect } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import jss from './jss';
 
 const Dot = ({ children, ...other }) => {
@@ -7,8 +7,15 @@ const Dot = ({ children, ...other }) => {
   let sheet = ref.current;
 
   if (!sheet) {
-    sheet = ref.current = jss.createStyleSheet(styles, { link: true }).attach();
+    sheet = ref.current = jss.createStyleSheet(styles, { link: true });
   }
+
+  useLayoutEffect(() => {
+    sheet.attach();
+    return () => {
+      sheet.detach();
+    };
+  }, []);
 
   useLayoutEffect(
     () => {
@@ -16,12 +23,6 @@ const Dot = ({ children, ...other }) => {
     },
     [other]
   );
-
-  useEffect(() => {
-    return () => {
-      sheet.detach();
-    };
-  }, []);
 
   const { classes } = sheet;
 
